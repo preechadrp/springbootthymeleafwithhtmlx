@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <!-- ส่วนที่จะถูกดึงไปแสดงใน #response-area -->
+    <div th:fragment="success-message" class="success">
+        <p th:text="${message}"></p>
+        <p>ข้อมูลถูกส่งไปยัง Server เรียบร้อยแล้ว (โดยไม่ Refresh หน้าจอ)</p>
+    </div>
+
+</body>
+</html>

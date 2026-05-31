@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>HTMX POST Form</title>
+    <script th:src="@{/js/htmx.min.js}"></script>
+    <style>
+        .success { color: green; padding: 10px; border: 1px solid green; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>เพิ่มพนักงานใหม่</h2>
+
+    <!-- HTMX จะส่ง Form นี้แบบ POST ไปที่ /employee -->
+    <form hx-post="/employee" 
+          hx-target="#response-area" 
+          hx-swap="innerHTML">
+        
+        <div>
+            <label>ชื่อ:</label>
+            <input type="text" name="name" required>
+        </div>
+        <br>
+        <div>
+            <label>ตำแหน่ง:</label>
+            <input type="text" name="role" required>
+        </div>
+        <br>
+        <button type="submit">บันทึกข้อมูล</button>
+    </form>
+
+    <!-- จุดที่แสดงผลลัพธ์หลังจากกด Save -->
+    <div id="response-area"></div>
+
+</body>
+</html>
