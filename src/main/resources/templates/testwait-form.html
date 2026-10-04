@@ -5,9 +5,44 @@
     <title>HTMX On Load Example</title>
     <script th:src="@{/js/htmx.min.js}"></script>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .card { border: 1px solid #ccc; padding: 20px; border-radius: 8px; width: 300px; }
-        .loading { color: gray; font-style: italic; }
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+        }
+        .card { 
+            border: 1px solid #ccc; 
+            padding: 20px; 
+            border-radius: 8px; 
+            width: 300px; 
+        }
+        /* 1. คำสั่ง CSS สำหรับหมุนโลโก้ */
+        .spin-animation {
+            width: 100px;
+            animation: spin 1.5s linear infinite; /* หมุนวนลูปไม่สิ้นสุด */
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 2. กล่องเล็กลอยอยู่ตรงกลางหน้าจอ (ไม่เต็มจอ) */
+        .loading-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 30px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            pointer-events: none; /* ไม่บังการคลิกตอนซ่อนอยู่ */
+        }
     </style>
 </head>
 <body>
@@ -21,14 +56,19 @@
       hx-trigger: ทำงานทันทีเมื่อ Element นี้ถูกโหลดขึ้นมาบนหน้าจอ (load)
       hx-swap: เอาเนื้อหามาใส่แทนที่ (outerHTML)
     -->
+
     <div hx-get="/TestWait-process" 
          hx-trigger="load" 
-         hx-swap="outerHTML" 
-         class="card">
-         
-         <!-- ข้อความนี้จะแสดงระหว่างรอ Server ตอบกลับ -->
-         <div class="loading">กำลังโหลดข้อมูลสถิติ กรุณารอสักครู่...</div>
-         
+         hx-indicator="#loading-spinner">
+    </div>
+
+    <div id="loading-spinner" class="htmx-indicator loading-overlay">
+        
+        <!-- เปลี่ยน src เป็นที่อยู่ไฟล์โลโก้ของคุณ -->
+        <img src="https://cdn-icons-png.flaticon.com/512/2092/2092063.png" class="spin-animation" alt="Loading Logo">
+        
+        <h3>กำลังโหลดข้อมูล... กรุณารอสักครู่</h3>
+        
     </div>
 
 </body>
