@@ -15,16 +15,24 @@
             border-radius: 8px; 
             width: 300px; 
         }
-        /* 1. คำสั่ง CSS สำหรับหมุนโลโก้ */
-        .spin-animation {
-            width: 100px;
-            animation: spin 1.5s linear infinite; /* หมุนวนลูปไม่สิ้นสุด */
-            margin-bottom: 15px;
+        /* 1. จุดต่อท้ายคำว่า Processing แสดง 1-5 จุดแล้ววนใหม่ */
+        .dots {
+            display: inline-block;
+            width: 1.5em; /* จองที่ไว้ 5 จุด ข้อความจะได้ไม่ขยับ */
+            text-align: left;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .dots::after {
+            content: ".";
+            animation: dots 2.5s step-end infinite; /* จุดละ 0.5 วินาที */
+        }
+
+        @keyframes dots {
+            0%  { content: "."; }
+            20% { content: ".."; }
+            40% { content: "..."; }
+            60% { content: "...."; }
+            80% { content: "....."; }
         }
 
         /* 2. กล่องเล็กลอยอยู่ตรงกลางหน้าจอ (ไม่เต็มจอ) */
@@ -63,12 +71,9 @@
     </div>
 
     <div id="loading-spinner" class="htmx-indicator loading-overlay">
-        
-        <!-- เปลี่ยน src เป็นที่อยู่ไฟล์โลโก้ของคุณ -->
-        <img src="https://cdn-icons-png.flaticon.com/512/2092/2092063.png" class="spin-animation" alt="Loading Logo">
-        
-        <h3>กำลังโหลดข้อมูล... กรุณารอสักครู่</h3>
-        
+
+        <h3>Processing<span class="dots"></span></h3>
+
     </div>
 
 </body>

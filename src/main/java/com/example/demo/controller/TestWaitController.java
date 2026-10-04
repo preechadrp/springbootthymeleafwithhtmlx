@@ -16,7 +16,7 @@ public class TestWaitController {
 	public String process(Model model) throws InterruptedException {
 
 		// จำลองสถานการณ์ว่าดึงข้อมูลจาก Database นาน 2 วินาที
-        Thread.sleep(2000); 
+        Thread.sleep(5000); 
         
         model.addAttribute("totalUsers", 1542);
         model.addAttribute("dailySales", "฿45,000");
