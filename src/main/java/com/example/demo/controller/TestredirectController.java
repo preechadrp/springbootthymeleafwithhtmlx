@@ -34,7 +34,7 @@ public class TestredirectController {
                 .toUriString();
                 
         // ผลลัพธ์ที่ได้จะเป็น: 
-        // https://abc.hh.com/?id=U998877&status=success&msg=%E0%B9%82%E0%B8%AB...
+        // https://www.google.com/?id=U998877&status=success&msg=%E0%B9%82%E0%B8%AB...
 
         // สั่งให้ HTMX Redirect ไปยัง URL ที่สร้างเสร็จแล้ว
         response.setHeader("HX-Redirect", redirectUrl);
