@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.Cookie;
@@ -43,6 +44,18 @@ public class TestWaitController {
                 }
             }
         }
+
+        System.out.println("mycokie = " + myCokie);
+        model.addAttribute("myCokie", myCokie);
+
+        return "testwait-form";
+    }
+
+    @GetMapping("/TestWait2")
+    public String showUi2(
+            // อ่าน cookie ชื่อ mycokie ด้วย @CookieValue ถ้าไม่มี cookie จะใช้ค่า defaultValue แทน
+            @CookieValue(name = "mycokie", defaultValue = "ไม่มี cookie") String myCokie,
+            Model model) {
 
         System.out.println("mycokie = " + myCokie);
         model.addAttribute("myCokie", myCokie);
