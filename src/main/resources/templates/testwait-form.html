@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HTMX On Load Example</title>
+    <script th:src="@{/js/htmx.min.js}"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .card { border: 1px solid #ccc; padding: 20px; border-radius: 8px; width: 300px; }
+        .loading { color: gray; font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <h1>Test Wait</h1>
+    <h1>แดชบอร์ดสรุปผล</h1>
+    <p>หน้าเว็บนี้โหลดเสร็จทันที แต่ข้อมูลด้านล่างจะตามมาทีหลัง...</p>
+
+    <!-- 
+      hx-get: ยิงไปที่ /TestWait-process
+      hx-trigger: ทำงานทันทีเมื่อ Element นี้ถูกโหลดขึ้นมาบนหน้าจอ (load)
+      hx-swap: เอาเนื้อหามาใส่แทนที่ (outerHTML)
+    -->
+    <div hx-get="/TestWait-process" 
+         hx-trigger="load" 
+         hx-swap="outerHTML" 
+         class="card">
+         
+         <!-- ข้อความนี้จะแสดงระหว่างรอ Server ตอบกลับ -->
+         <div class="loading">กำลังโหลดข้อมูลสถิติ กรุณารอสักครู่...</div>
+         
+    </div>
+
+</body>
+</html>
