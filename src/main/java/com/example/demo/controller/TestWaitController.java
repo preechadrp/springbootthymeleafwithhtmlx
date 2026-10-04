@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j 
 @Controller 
 public class TestWaitController {
 
@@ -45,7 +47,7 @@ public class TestWaitController {
             }
         }
 
-        System.out.println("mycokie = " + myCokie);
+        log.info("mycokie = " + myCokie);
         model.addAttribute("myCokie", myCokie);
 
         return "testwait-form";
@@ -57,7 +59,7 @@ public class TestWaitController {
             @CookieValue(name = "mycokie", defaultValue = "ไม่มี cookie") String myCokie,
             Model model) {
 
-        System.out.println("mycokie = " + myCokie);
+        log.info("mycokie = " + myCokie);
         model.addAttribute("myCokie", myCokie);
 
         return "testwait-form";
