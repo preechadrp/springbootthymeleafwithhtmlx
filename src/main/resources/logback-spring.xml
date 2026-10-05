@@ -9,7 +9,7 @@
         <encoder>
             <!-- <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n </pattern> -->
             <pattern>%d{HH:mm:ss.SSS} %-5level %logger{50} - %msg%n </pattern>
-            <encoding>UTF-8</encoding>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
@@ -17,10 +17,13 @@
         <file>${LOG_DIR}/${LOG_NAME}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_DIR}/${LOG_NAME}.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <!-- เก็บ log ย้อนหลัง 30 วัน และรวมกันไม่เกิน 1GB กันดิสก์เต็ม -->
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <encoding>UTF-8</encoding>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 

@@ -62,7 +62,7 @@
     <!-- 
       hx-post: ยิงไปที่ /testredirect-process
       hx-trigger: ทำงานทันทีเมื่อ Element นี้ถูกโหลดขึ้นมาบนหน้าจอ (load)
-      hx-swap: เอาเนื้อหามาใส่แทนที่ (outerHTML)
+      ไม่มีการ swap เนื้อหา เพราะ Server ตอบกลับด้วย Header HX-Redirect ให้ไปหน้าอื่นแทน
     -->
     <div hx-post="/testredirect-process" 
          hx-trigger="load" 

@@ -1,5 +1,9 @@
 package com.example.demo.controller;
 
+import java.time.Duration;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -20,11 +24,14 @@ public class TestWaitController {
         // สร้าง cookie แล้วส่งกลับไปให้ browser ผ่าน response
         String cookieName = "myCookie";
         String cookieValue = "spring-boot-example";
-        Cookie cookie = new Cookie(cookieName, cookieValue);
-        cookie.setMaxAge(30 * 60); // มีอายุ 30 นาที
-        cookie.setPath("/"); // ใช้งานได้ทุก path ของ application
-        cookie.setHttpOnly(true); // ป้องกัน JavaScript อ่าน cookie โดยตรง
-        response.addCookie(cookie);
+        ResponseCookie cookie = ResponseCookie.from(cookieName, cookieValue)
+                .maxAge(Duration.ofMinutes(30)) // มีอายุ 30 นาที
+                .path("/") // ใช้งานได้ทุก path ของ application
+                .httpOnly(true) // ป้องกัน JavaScript อ่าน cookie โดยตรง
+                .secure(true) // ส่ง cookie เฉพาะผ่าน HTTPS (browser ส่วนใหญ่ยอมให้ localhost ใช้ได้)
+                .sameSite("Lax") // ไม่ส่ง cookie ไปกับ request ข้ามเว็บ ยกเว้นการคลิกลิงก์เข้ามา
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
         model.addAttribute(cookieName, cookieValue);
 
@@ -69,7 +76,7 @@ public class TestWaitController {
      @GetMapping("/TestWait-process")
 	public String process(Model model) throws InterruptedException {
 
-		// จำลองสถานการณ์ว่าดึงข้อมูลจาก Database นาน 2 วินาที
+		// จำลองสถานการณ์ว่าดึงข้อมูลจาก Database นาน 5 วินาที
         Thread.sleep(5000); 
         
         model.addAttribute("totalUsers", 1542);

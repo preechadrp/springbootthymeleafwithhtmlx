@@ -8,5 +8,10 @@
         <p>ข้อมูลถูกส่งไปยัง Server เรียบร้อยแล้ว (โดยไม่ Refresh หน้าจอ)</p>
     </div>
 
+    <!-- ส่วนที่จะแสดงเมื่อข้อมูลไม่ผ่านการตรวจสอบฝั่ง Server -->
+    <div th:fragment="error-message" class="error">
+        <p th:each="error : ${errors}" th:text="${error}"></p>
+    </div>
+
 </body>
 </html>
