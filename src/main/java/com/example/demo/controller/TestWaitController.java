@@ -76,7 +76,7 @@ public class TestWaitController {
         model.addAttribute("dailySales", "฿45,000");
         
         // ส่งกลับไปเฉพาะ Fragment ชื่อ 'statsFragment'
-        return "/fragments/testwait-result :: myFragment";
+        return "fragments/testwait-result :: myFragment";
 	}
     
 }
