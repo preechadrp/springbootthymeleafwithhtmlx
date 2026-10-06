@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j 
 @Controller 
+@RequestMapping("/webui")
 public class TestWaitController {
 
     @GetMapping("/TestSetCookie")
@@ -82,7 +84,7 @@ public class TestWaitController {
         model.addAttribute("totalUsers", 1542);
         model.addAttribute("dailySales", "฿45,000");
         
-        // ส่งกลับไปเฉพาะ Fragment ชื่อ 'statsFragment'
+        // ส่งกลับไปเฉพาะ Fragment ชื่อ 'myFragment'
         return "fragments/testwait-result :: myFragment";
 	}
     

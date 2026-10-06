@@ -4,14 +4,15 @@
     <title>Spring Boot + HTMX</title>
     <!-- โหลด HTMX -->
     <!--<script src="https://unpkg.com/htmx.org@1.9.10"></script>-->
-    <script th:src="@{/js/htmx.min.js}"></script>
+    <script th:src="@{/webui/js/htmx.min.js}"></script>
 </head>
-<body>
+<!-- hx-headers: ให้ HTMX แนบ CSRF token ไปกับทุก request ที่ยิงจากหน้านี้ -->
+<body th:hx-headers='|{"${_csrf.headerName}": "${_csrf.token}"}|'>
     <h1>HTMX Demo</h1>
 
     <div id="contact-section">
      aaaa
-        <button hx-get="/contact/1" 
+        <button th:hx-get="@{/webui/contact/1}" 
                 hx-target="#contact-section" 
                 hx-swap="innerHTML">
             Show Contact Info

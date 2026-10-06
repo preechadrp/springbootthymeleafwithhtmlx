@@ -3,57 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>HTMX On Load Example</title>
-    <script th:src="@{/js/htmx.min.js}"></script>
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            padding: 20px; 
-        }
-        .card { 
-            border: 1px solid #ccc; 
-            padding: 20px; 
-            border-radius: 8px; 
-            width: 300px; 
-        }
-        /* 1. จุดต่อท้ายคำว่า Processing แสดง 1-5 จุดแล้ววนใหม่ */
-        .dots {
-            display: inline-block;
-            width: 1.5em; /* จองที่ไว้ 5 จุด ข้อความจะได้ไม่ขยับ */
-            text-align: left;
-        }
-
-        .dots::after {
-            content: ".";
-            animation: dots 1.5s step-end infinite; /* จุดละ 0.3 วินาที */
-        }
-
-        @keyframes dots {
-            0%  { content: "."; }
-            20% { content: ".."; }
-            40% { content: "..."; }
-            60% { content: "...."; }
-            80% { content: "....."; }
-        }
-
-        /* 2. กล่องเล็กลอยอยู่ตรงกลางหน้าจอ (ไม่เต็มจอ) */
-        .loading-overlay {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 30px;
-            border-radius: 8px;
-            background-color: #f8f9fa;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            pointer-events: none; /* ไม่บังการคลิกตอนซ่อนอยู่ */
-        }
-    </style>
+    <script th:src="@{/webui/js/htmx.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webui/css/my.css}">
 </head>
-<body>
+<!-- hx-headers: ให้ HTMX แนบ CSRF token ไปกับทุก request ที่ยิงจากหน้านี้ -->
+<body th:hx-headers='|{"${_csrf.headerName}": "${_csrf.token}"}|'>
 
     <h1>Test Wait</h1>
     <h1>แดชบอร์ดสรุปผล</h1>
@@ -61,12 +15,12 @@
     <p>ค่า cookie myCookie: <span th:text="${myCookie}"></span></p>
 
     <!-- 
-      hx-get: ยิงไปที่ /TestWait-process
+      hx-get: ยิงไปที่ /webui/TestWait-process
       hx-trigger: ทำงานทันทีเมื่อ Element นี้ถูกโหลดขึ้นมาบนหน้าจอ (load)
       hx-swap: ไม่ได้กำหนด จึงใช้ค่าเริ่มต้น (innerHTML) คือเอาเนื้อหามาใส่ไว้ข้างใน Element นี้
     -->
 
-    <div hx-get="/TestWait-process" 
+    <div th:hx-get="@{/webui/TestWait-process}" 
          hx-trigger="load" 
          hx-indicator="#loading-spinner">
     </div>

@@ -6,12 +6,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.dto.Employee;
 
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/webui")
 public class EmployeeController {
 
     @GetMapping("/form")
