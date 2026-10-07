@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>HTMX POST Form</title>
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <!-- ปิดฟีเจอร์ของ HTMX ที่ขัดกับ CSP / เสี่ยงต่อ XSS -->
+    <meta name="htmx-config" content='{"includeIndicatorStyles":false,"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true}'>
     <script th:src="@{/webui/js/htmx.min.js}"></script>
-    <style>
-        .success { color: green; padding: 10px; border: 1px solid green; margin-top: 10px; }
-        .error { color: red; padding: 10px; border: 1px solid red; margin-top: 10px; }
-    </style>
+    <script th:src="@{/webui/js/htmx-csrf.js}"></script>
+    <link rel="stylesheet" th:href="@{/webui/css/my.css}">
 </head>
-<!-- hx-headers: ให้ HTMX แนบ CSRF token ไปกับทุก request ที่ยิงจากหน้านี้ -->
-<body th:hx-headers='|{"${_csrf.headerName}": "${_csrf.token}"}|'>
+<body>
     <h2>เพิ่มพนักงานใหม่</h2>
 
     <!-- HTMX จะส่ง Form นี้แบบ POST ไปที่ /webui/employee -->

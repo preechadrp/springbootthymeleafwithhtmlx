@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>HTMX On Load Example</title>
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <!-- ปิดฟีเจอร์ของ HTMX ที่ขัดกับ CSP / เสี่ยงต่อ XSS -->
+    <meta name="htmx-config" content='{"includeIndicatorStyles":false,"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true}'>
     <script th:src="@{/webui/js/htmx.min.js}"></script>
+    <script th:src="@{/webui/js/htmx-csrf.js}"></script>
     <link rel="stylesheet" th:href="@{/webui/css/my.css}">
 </head>
-<!-- hx-headers: ให้ HTMX แนบ CSRF token ไปกับทุก request ที่ยิงจากหน้านี้ -->
-<body th:hx-headers='|{"${_csrf.headerName}": "${_csrf.token}"}|'>
+<body>
 
     <h1>Test Redirect</h1>
     <h1>แดชบอร์ดสรุปผล</h1>
@@ -18,9 +22,7 @@
       hx-trigger: ทำงานทันทีเมื่อ Element นี้ถูกโหลดขึ้นมาบนหน้าจอ (load)
       ไม่มีการ swap เนื้อหา เพราะ Server ตอบกลับด้วย Header HX-Redirect ให้ไปหน้าอื่นแทน
     -->
-    <div th:hx-post="@{/webui/testredirect-process}" 
-         hx-trigger="load" 
-         hx-indicator="#loading-spinner">
+    <div th:hx-post="@{/webui/testredirect-process}" hx-trigger="load" hx-indicator="#loading-spinner">
     </div>
 
     <div id="loading-spinner" class="htmx-indicator loading-overlay">
@@ -28,4 +30,5 @@
     </div>
 
 </body>
+
 </html>
