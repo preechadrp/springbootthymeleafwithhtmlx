@@ -24,11 +24,13 @@ public class SecurityConfig {
                         .ignoringRequestMatchers("/api/**"))
 
                 // security header: ค่าเริ่มต้นของ Spring Security ใส่ให้อยู่แล้วคือ
-                // X-Content-Type-Options: nosniff, X-Frame-Options: DENY, Cache-Control: no-cache
+                // X-Content-Type-Options: nosniff, X-Frame-Options: DENY, X-XSS-Protection: 0,
+                // Cache-Control: no-cache, no-store, max-age=0, must-revalidate, Pragma: no-cache, Expires: 0
                 // และ Strict-Transport-Security (HSTS) เฉพาะ request ที่เป็น HTTPS
                 .headers(headers -> headers
                         // ให้ browser รัน JavaScript ได้เฉพาะไฟล์จากโดเมนเดียวกัน ห้าม inline script, eval และ script จากเว็บอื่น
                         .contentSecurityPolicy(csp -> csp.policyDirectives("script-src 'self'"))
+                        // ค่าตรงกับค่าเริ่มต้นของ Spring Security อยู่แล้ว เขียนไว้ให้เห็นชัดว่าใช้ค่าอะไร
                         .httpStrictTransportSecurity(hsts -> hsts
                                 .includeSubDomains(true)
                                 .maxAgeInSeconds(31536000))); // 1 ปี
