@@ -1,9 +1,10 @@
 package com.example.demo.controller;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,8 @@ public class EmployeeController {
 		// ตรวจสอบข้อมูลฝั่ง server อีกชั้น เพราะ required ในฟอร์มกันได้แค่ฝั่ง browser
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("errors", bindingResult.getFieldErrors().stream()
-					.map(FieldError::getDefaultMessage)
+					// getDefaultMessage() อาจคืน null ได้ จึงใส่ข้อความสำรองไว้
+					.map(error -> Objects.requireNonNullElse(error.getDefaultMessage(), "ข้อมูลไม่ถูกต้อง"))
 					.toList());
 			return "fragments/result :: error-message";
 		}
